@@ -9,11 +9,11 @@ import subprocess
 import pickle
 import torch
 import os
-
+# In[]
 cifar_path = "cifar-100-python.tar.gz"
 cifar10_path = "cifar-10-python.tar.gz"
 mnist_path = "mnist.npz"
-
+"""
 # URL from: https://www.cs.toronto.edu/~kriz/cifar.html
 if not os.path.exists(cifar_path):
     subprocess.call("wget https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz", shell=True)
@@ -65,7 +65,7 @@ y_te = torch.LongTensor(cifar10_test[b'labels'])
 x_te=x_te[0:1000]
 y_te=y_te[0:1000]
 torch.save((x_tr, y_tr, x_te, y_te), 'cifar10.pt')
-
+"""
 
 f = np.load('mnist.npz')
 x_tr = torch.from_numpy(f['x_train'])
@@ -73,6 +73,6 @@ y_tr = torch.from_numpy(f['y_train']).long()
 x_te = torch.from_numpy(f['x_test'])
 y_te = torch.from_numpy(f['y_test']).long()
 f.close()
-
+# In[]
 torch.save((x_tr, y_tr), 'mnist_train.pt')
 torch.save((x_te, y_te), 'mnist_test.pt')

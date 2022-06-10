@@ -3,7 +3,7 @@ import argparse
 import os.path
 import torch
 import pdb
-
+# In[]
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--i', default='raw/', help='input directory')
@@ -18,13 +18,14 @@ torch.manual_seed(args.seed)
 tasks_tr = []
 tasks_te = []
 
-x_tr, y_tr = torch.load(os.path.join(args.i, 'mnist_train.pt'))
+x_tr, y_tr = torch.load(os.path.join(args.i, 'mnist_train.pt'))# (60000,28,28)
 x_te, y_te = torch.load(os.path.join(args.i, 'mnist_test.pt'))
-x_tr = x_tr.float().view(x_tr.size(0), -1) / 255.0
+# In[]
+x_tr = x_tr.float().view(x_tr.size(0), -1) / 255.0# (60000,784)
 x_te = x_te.float().view(x_te.size(0), -1) / 255.0
 y_tr = y_tr.view(-1).long()
 y_te = y_te.view(-1).long()
-
+# In[]
 # prepare label corruption
 if args.ratio > 0:
     corrupt_idx = torch.FloatTensor(y_tr.size()).uniform_() < args.ratio
@@ -63,4 +64,4 @@ if args.ratio > 0:
 else:
     out_dir = args.o + '.pt'
 
-torch.save([tasks_tr, tasks_te], out_dir)
+# torch.save([tasks_tr, tasks_te], out_dir)
