@@ -3,10 +3,7 @@
 import torch
 from PIL import Image
 import numpy as np
-import cv2
 import matplotlib.pyplot as plt
-import copy
-import random
 
 # In[]
 x_tr, y_tr = torch.load('./raw/mnist_train.pt')
