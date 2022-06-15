@@ -41,14 +41,11 @@ def find_annot_coord(img=None, ):
     return top_row,bottom_row,left_col,right_col
 
 # In[]
-# In[]
-#annot_coords_tr=np.zeros((y_tr.shape[0],4,2))
-#annot_coords_te=np.zeros((y_te.shape[0],4,2))
 def find_annot_coords_for_multi_samples(x,y):
-    annot_coords=np.zeros((y.shape[0],4,2))
+    annot_coords=torch.zeros([y.shape[0],4,2])
     for i in range(0,y.shape[0]):
         top_row,bottom_row,left_col,right_col=find_annot_coord(x[i])
-        annot_coords[i,:,:]=np.array([
+        annot_coords[i,:,:]=torch.tensor([
             [top_row,left_col],
             [top_row,right_col],
             [bottom_row,left_col],
@@ -57,8 +54,8 @@ def find_annot_coords_for_multi_samples(x,y):
 annot_coords_tr=find_annot_coords_for_multi_samples(x_tr,y_tr)
 annot_coords_te=find_annot_coords_for_multi_samples(x_te,y_te)
 # In[]
-torch.save(annot_coords_tr, 'annot_coords_tr.pt')
-torch.save(annot_coords_te, 'annot_coords_te.pt')
+torch.save(annot_coords_tr, './raw/annot_coords_tr.pt')
+torch.save(annot_coords_te, './raw/annot_coords_te.pt')
 # In[]
 
 

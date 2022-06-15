@@ -209,7 +209,7 @@ def life_experience(model, continuum, x_te, args):
 
     return torch.Tensor(result_t), torch.Tensor(result_a),torch.Tensor(result_all),torch.Tensor(current_res_per_t),torch.Tensor(current_avg_acc_list),res_on_mem, time_spent
 
-
+# In[]
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Continuum learning')
 
@@ -224,7 +224,7 @@ if __name__ == "__main__":
                         help='shared head between tasks')
     parser.add_argument('--bias', type=int, default='1',
                         help='add bias')
-    parser.add_argument('--reg_factor', type=float, default=0,
+    parser.add_argument('--reg_factor', type=float, default=0.005,
                         help='The hyper-parameter for controlling of feature sparsity regularization')
     parser.add_argument('--robust', type=float, default=0,
                         help='whether to use the proposed robust regularization')
@@ -232,23 +232,23 @@ if __name__ == "__main__":
                         help='The neuronal correlation order for NAC regularization')
 
     # memory parameters
-    parser.add_argument('--n_memories', type=int, default=0,
+    parser.add_argument('--n_memories', type=int, default=50,
                         help='number of memories per task')
-    parser.add_argument('--n_sampled_memories', type=int, default=0,
+    parser.add_argument('--n_sampled_memories', type=int, default=100,
                         help='number of sampled_memories per task')
-    parser.add_argument('--n_constraints', type=int, default=0,
+    parser.add_argument('--n_constraints', type=int, default=50,
                         help='number of constraints to use during online training')
     parser.add_argument('--b_rehearse', type=int, default=0,
                         help='if 1 use mini batch while rehearsing')
-    parser.add_argument('--tasks_to_preserve', type=int, default=1,
+    parser.add_argument('--tasks_to_preserve', type=int, default=5,
                         help='number of tasks to preserve')
     parser.add_argument('--change_th', type=float, default=0.0,
                         help='gradients similarity change threshold for re-estimating the constraints')
-    parser.add_argument('--slack', type=float, default=0.01,
+    parser.add_argument('--slack', type=float, default=0,
                         help='slack for small gradient norm')
     parser.add_argument('--normalize', type=str, default='no',
                         help='normalize gradients before selection')
-    parser.add_argument('--memory_strength', default=0, type=float,
+    parser.add_argument('--memory_strength', default=50, type=float,
                         help='memory strength (meaning depends on memory)')
     parser.add_argument('--finetune', default='no', type=str,
                         help='whether to initialize nets in indep. nets')
@@ -256,15 +256,15 @@ if __name__ == "__main__":
     # optimizer parameters
     parser.add_argument('--n_epochs', type=int, default=1,
                         help='Number of epochs per task')
-    parser.add_argument('--n_iter', type=int, default=1,
+    parser.add_argument('--n_iter', type=int, default=100,
                         help='Number of iterations per batch')
     parser.add_argument('--repass', type=int, default=0,
                         help='make a repass over the previous data')
-    parser.add_argument('--batch_size', type=int, default=10,
+    parser.add_argument('--batch_size', type=int, default=50,
                         help='batch size')
     parser.add_argument('--mini_batch_size', type=int, default=0,
                         help='mini batch size')
-    parser.add_argument('--lr', type=float, default=1e-3,
+    parser.add_argument('--lr', type=float, default=1e-4,
                         help='SGD learning rate')
 
     # experiment parameters
@@ -274,22 +274,22 @@ if __name__ == "__main__":
                         help='random seed')
     parser.add_argument('--log_every', type=int, default=100,
                         help='frequency of logs, in minibatches')
-    parser.add_argument('--save_path', type=str, default='results/',
+    parser.add_argument('--save_path', type=str, default='./results/Disjoint_Mnist_5/100/',
                         help='save models at the end of training')
     parser.add_argument('--output_name', type=str, default='',
                         help='special output name for the results?')
     # data parameters
     parser.add_argument('--data_path', default='data/',
                         help='path where data is located')
-    parser.add_argument('--data_file', default='mnist_permutations.pt',
+    parser.add_argument('--data_file', default='mnist_split.pt',
                         help='data file')
-    parser.add_argument('--samples_per_task', type=str, default='-1',
+    parser.add_argument('--samples_per_task', type=str, default='1000',
                         help='training samples per task (all if negative)')
     parser.add_argument('--shuffle_tasks', type=str, default='no',
                         help='present tasks in order')
-    parser.add_argument('--eval_memory', type=str, default='no',
+    parser.add_argument('--eval_memory', type=str, default='yes',
                         help='compute accuracy on memory')
-    parser.add_argument('--age', type=float, default=1,
+    parser.add_argument('--age', type=float, default=0,
                         help='consider age for sample selection')
     parser.add_argument('--subselect', type=int, default=1,
                         help='first subsample from recent memories')
