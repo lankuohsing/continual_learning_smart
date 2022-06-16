@@ -29,8 +29,8 @@ add_noise_to_dataset(x_tr, y_tr)
 add_noise_to_dataset(x_te, y_te)
 
 # In[]
-torch.save((x_tr, y_tr), 'noisy_mnist_train.pt')
-torch.save((x_te, y_te), 'noisy_mnist_test.pt')
+torch.save((x_tr, y_tr), './raw/noisy_mnist_train.pt')
+torch.save((x_te, y_te), './raw/noisy_mnist_test.pt')
 # In[]
 noisy_x_tr, noisy_y_tr = torch.load('./noisy_mnist_train.pt')
 noisy_x_te, noisy_y_te = torch.load('./noisy_mnist_test.pt')
